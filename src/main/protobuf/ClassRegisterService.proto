@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "register.proto";
+
+package register;
+
+// gRPC (remote procedure call)
+
+service ClassRegisterService {
+  rpc CompleteClass (ClassBooking) returns (BookingResponse) {}
+}
+
+message ClassBooking {
+  string classId = 1;
+  string participantNames = 2;
+}
+
+message BookingResponse {
+  bool ok = 1;
+}

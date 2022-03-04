@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "booking.proto";
+
+package booking;
+
+// gRPC for ClassBookingService
+
+service ClassBookingService {
+  rpc AddParticipant (RegisterRequest) returns (ClassList) {}
+  rpc RemoveRequest (RegisterRequest) returns (ClassList) {}
+
+  rpc CloseClass (CloseRequest) returns (ClassList) {}
+  rpc Get (GetClassListRequest) returns (ClassList) {}
+
+  rpc GetClassOccupancyPercentage(GetClassOccupancyRequest) returns (ClassOccupancyResponse) {}
+}
+
+message RegisterRequest {
+  string classId = 1;
+  repeated Participant participant = 2;
+}
+
+message RemoveRequest {
+  string classId = 1;
+  repeated Participant participant = 2;
+}
+
+message CloseRequest {
+  string classId = 1;
+}
+
+message GetClassListRequest {
+  string classId = 1;
+}
+
+message ClassList {
+  repeated Participant participants = 1;
+  bool closed = 2;
+}
+
+message Participant {
+  string name = 1;
+}
+
+message RegisterResponse {
+  bool ok = 1;
+}
+
+message GetClassOccupancyRequest {
+  string classId = 1;
+}
+
+message ClassOccupancyResponse {
+  string classId = 1;
+  int64 percentage = 2;
+}
